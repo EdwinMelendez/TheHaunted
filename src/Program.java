@@ -10,7 +10,15 @@ public class Program {
         GameManager.ShowTitleScreen();
 
         GameEngineGui gui = new GameEngineGui();
+
         CommandProcessor.gui = gui;
+
+        while(quit == false){
+            String output = TextBuffer.Output();
+            CommandProcessor.ProcessCommand(output);
+            //gui.Display(output);
+        }
+
 
     }
 }

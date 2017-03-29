@@ -41,6 +41,9 @@ public class Room {
 
     public void Describe(){
 
+        TextBuffer.AddDescription(this.description);
+        TextBuffer.AddItem(this.GetItemList());
+        TextBuffer.AddDirection(this.GetExitList());
     }
 
     public void ShowTitle(){

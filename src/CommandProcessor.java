@@ -49,27 +49,30 @@ public  class CommandProcessor {
                 break;
 
             default:
-                TextBuffer.Add("That doesn't make sense...");
+                TextBuffer.AddDescription("That doesn't make sense...");
                 break;
         }
         GameManager.ApplyRules();
-        String output = TextBuffer.Output();
+
+        String output = TextBuffer.OutputItem();
+
         gui.Display(output);
+
         TextBuffer.Reset();
     }
 
     public static void ShowHelp(){
 
-        TextBuffer.Add("Available Commands:");
-        TextBuffer.Add("--------------------");
-        TextBuffer.Add("help");
-        TextBuffer.Add("exit");
-        TextBuffer.Add("move [north,south,east,west]");
-        TextBuffer.Add("look");
-        TextBuffer.Add("pickup");
-        TextBuffer.Add("drop");
-        TextBuffer.Add("inventory");
-        TextBuffer.Add("whereami");
+        TextBuffer.AddItem("Available Commands:");
+        TextBuffer.AddItem("--------------------");
+        TextBuffer.AddItem("help");
+        TextBuffer.AddItem("exit");
+        TextBuffer.AddItem("move [north,south,east,west]");
+        TextBuffer.AddItem("look");
+        TextBuffer.AddItem("pickup");
+        TextBuffer.AddItem("drop");
+        TextBuffer.AddItem("inventory");
+        TextBuffer.AddItem("whereami");
 
 
     }

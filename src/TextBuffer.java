@@ -4,21 +4,42 @@ public class TextBuffer  {
 
 
 
-    private static String outputBuffer;
+    private static String descriptionBuffer;
+    private static String itemBuffer;
+    private static String directionBuffer;
 
 
-    public static void Add(String text){
 
-        outputBuffer += text + "\n";
+    public static void AddDescription(String text){
+
+        descriptionBuffer += text + "\n";
     }
 
-    public static String Output(){
+    public static void AddItem(String text){
 
-       return outputBuffer;
+        itemBuffer += text + "\n";
+    }
+    public static void AddDirection(String text){
+
+        directionBuffer += text + "\n";
+    }
+    public static String OutputDescription(){
+
+       return descriptionBuffer;
+    }
+    public static String OutputItem(){
+
+        return itemBuffer;
+    }
+    public static String OutputDirection(){
+
+        return directionBuffer;
     }
 
     public static void Reset(){
-        outputBuffer = "";
+        descriptionBuffer = "";
+        itemBuffer = "";
+        directionBuffer = "";
     }
 
 }
