@@ -1,5 +1,8 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.ComponentAdapter;
 
 /**
  * Created by DarthVader on 3/29/17.
@@ -19,6 +22,26 @@ public class GameEngineGui extends JFrame{
         setTitle("The Haunted");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
+
+        itemList.setEditable(false);
+        roomDescriptor.setEditable(false);
+        directionList.setEditable(false);
+
+        userInputTextField.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+                String userInput = userInputTextField.getText();
+                CommandProcessor.ProcessCommand(userInput);
+            }
+        });
+
+
+    }
+
+    void Display(String text){
+
+        itemList.setText(text);
 
     }
 

@@ -9,7 +9,8 @@ public class Program {
 
         GameManager.ShowTitleScreen();
 
-
+        GameEngineGui gui = new GameEngineGui();
+        CommandProcessor.gui = gui;
 
     }
 }

@@ -12,14 +12,13 @@ public class TextBuffer  {
         outputBuffer += text + "\n";
     }
 
-    public static void Display(JTextPane textPane){
+    public static String Output(){
 
-        textPane.setText("");
+       return outputBuffer;
+    }
 
-        textPane.setText(TextUtils.WordWrap(outputBuffer));
-
-
-        outputBuffer ="";
+    public static void Reset(){
+        outputBuffer = "";
     }
 
 }

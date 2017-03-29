@@ -7,6 +7,8 @@ import java.awt.*;
 public  class CommandProcessor {
 
 
+    public static GameEngineGui gui;
+
 
     public static void ProcessCommand(String line){
 
@@ -51,7 +53,9 @@ public  class CommandProcessor {
                 break;
         }
         GameManager.ApplyRules();
-        TextBuffer.Display();
+        String output = TextBuffer.Output();
+        gui.Display(output);
+        TextBuffer.Reset();
     }
 
     public static void ShowHelp(){
