@@ -11,6 +11,7 @@ public class GameManager {
 
     public static void StartGame(){
 
+        GameEngineGui newGame = new GameEngineGui();
     }
 
     public static void EndGame(){

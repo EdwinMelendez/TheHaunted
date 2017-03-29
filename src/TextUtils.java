@@ -34,7 +34,7 @@ public class TextUtils {
     }
 
 
-    public static String WordWrap(String text, int bufferWidth){
+    public static String WordWrap(String text){
 
         return text;
     }
