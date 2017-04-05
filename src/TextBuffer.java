@@ -7,6 +7,7 @@ public class TextBuffer  {
     private static String descriptionBuffer;
     private static String itemBuffer;
     private static String directionBuffer;
+    private static String roomNameBuffer;
 
 
 
@@ -23,6 +24,10 @@ public class TextBuffer  {
 
         directionBuffer += text + "\n";
     }
+    public static void AddRoomName(String text) {
+        roomNameBuffer += text;
+    }
+
     public static String OutputDescription(){
 
        return descriptionBuffer;
@@ -36,10 +41,15 @@ public class TextBuffer  {
         return directionBuffer;
     }
 
+    public static String OutputRoomName() {
+        return roomNameBuffer;
+    }
+
     public static void Reset(){
         descriptionBuffer = "";
         itemBuffer = "";
         directionBuffer = "";
+        roomNameBuffer = "";
     }
 
 }

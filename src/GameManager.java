@@ -1,3 +1,5 @@
+import com.sun.tools.doclets.formats.html.SourceToHTMLConverter;
+
 /**
  * Created by DarthVader on 3/22/17.
  */
@@ -11,15 +13,20 @@ public class GameManager {
 
     public static void StartGame(){
 
-        GameEngineGui newGame = new GameEngineGui();
+        Player.GetCurrentRoom().Describe();
+
     }
 
     public static void EndGame(){
 
+        Program.quit = true;
+        System.out.println("Exiting Game...");
+        System.exit(0);
     }
 
     public static void ApplyRules(){
 
+        //TextBuffer.Reset();
     }
 
 }

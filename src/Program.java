@@ -10,14 +10,18 @@ public class Program {
         GameManager.ShowTitleScreen();
 
         GameEngineGui gui = new GameEngineGui();
+        Level.Initialize();
+        GameManager.StartGame();
+
+
 
         CommandProcessor.gui = gui;
 
-        while(quit == false){
-            String output = TextBuffer.Output();
-            CommandProcessor.ProcessCommand(output);
+        //while(quit == false){
+            //String output = TextBuffer.OutputItem();
+            //CommandProcessor.ProcessCommand(output);
             //gui.Display(output);
-        }
+        //}
 
 
     }

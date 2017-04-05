@@ -1,8 +1,6 @@
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.ComponentAdapter;
+import java.awt.event.*;
 
 /**
  * Created by DarthVader on 3/29/17.
@@ -16,6 +14,8 @@ public class GameEngineGui extends JFrame{
     private JTextPane directionList;
 
 
+
+
     protected GameEngineGui(){
         setContentPane(rootPanel);
         setSize(new Dimension(450, 450));
@@ -27,6 +27,7 @@ public class GameEngineGui extends JFrame{
         roomDescriptor.setEditable(false);
         directionList.setEditable(false);
 
+
         userInputTextField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -37,12 +38,27 @@ public class GameEngineGui extends JFrame{
         });
 
 
+        userInputTextField.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                userInputTextField.setText("");
+                userInputTextField.grabFocus();
+            }
+        });
     }
 
-    void Display(String text){
-
+    void DisplayRoomName(String text){
+        roomName.setText(text);
+    }
+    void DisplayRoomDescription(String text){
+        roomDescriptor.setText(text);
+    }
+    void DisplayItems(String text){
         itemList.setText(text);
-
+    }
+    void DisplayDirections(String text){
+        directionList.setText(text);
     }
 
     public JPanel getRootPanel() {

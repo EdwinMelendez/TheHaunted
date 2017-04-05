@@ -53,12 +53,19 @@ public  class CommandProcessor {
                 break;
         }
         GameManager.ApplyRules();
+        //TextBuffer.Reset();
 
-        String output = TextBuffer.OutputItem();
+        String outRoom = TextBuffer.OutputRoomName();
+        String outDescript = TextBuffer.OutputDescription();
+        String outDirect = TextBuffer.OutputDirection();
+        String outItem = TextBuffer.OutputItem();
 
-        gui.Display(output);
+        gui.DisplayRoomName(outRoom);
+        gui.DisplayRoomDescription(outDescript);
+        gui.DisplayDirections(outDirect);
+        gui.DisplayItems(outItem);
 
-        TextBuffer.Reset();
+
     }
 
     public static void ShowHelp(){
