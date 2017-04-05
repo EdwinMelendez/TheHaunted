@@ -32,8 +32,12 @@ public class GameEngineGui extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                String userInput = userInputTextField.getText();
-                CommandProcessor.ProcessCommand(userInput);
+                try {
+                    String userInput = userInputTextField.getText();
+                    CommandProcessor.ProcessCommand(userInput);
+                }catch (Exception E){
+                    System.out.println("Error");
+                }
             }
         });
 

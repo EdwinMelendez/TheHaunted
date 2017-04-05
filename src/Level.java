@@ -30,12 +30,13 @@ public class Level {
         rooms = new Room[2][1];
 
         Room room;
-        Item item;
+        Item item = new Item();
 
         //create new room
         room = new Room();
         rooms[0][0] = room;
         //setup room
+        TextBuffer.Reset();
         room.setTitle("Red Room");
         room.setDescription("You've entered a red room");
         room.AddExit(Direction.East);
@@ -48,8 +49,13 @@ public class Level {
         room = new Room();
         rooms[1][0] = room;
         //setup room
+        TextBuffer.Reset();
         room.setTitle("Blue Room");
         room.setDescription("You've entered a blue room");
+        item.setTitle("red key");
+        item.setPickupText("You've picked up the red key");
+        item.getWeight();
+
         room.AddExit(Direction.West);
 
 

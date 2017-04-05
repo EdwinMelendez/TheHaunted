@@ -18,19 +18,20 @@ public class TextUtils {
     }
 
 
-    public static String ExtractArguments(String line){
+    public static String ExtractArguments(String line) throws Exception{
 
         int index = line.indexOf(' ');
+try {
+    if (index == -1) {
+        return "";
+    } else {
+        return (line.substring(index + 1, line.length() - index - 1));
+    }
+}catch (Exception e){
+    System.out.println("Error");
+}
 
-        if (index == -1){
-            return "";
-        }
-        else{
-            return (line.substring(index + 1, line.length() - index - 1));
-        }
-
-
-
+return "";
     }
 
 

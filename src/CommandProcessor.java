@@ -10,10 +10,10 @@ public  class CommandProcessor {
     public static GameEngineGui gui;
 
 
-    public static void ProcessCommand(String line){
+    public static void ProcessCommand(String line) throws Exception{
 
-        String command = TextUtils.ExtractCommand(line.trim().trim().toLowerCase());
-        String argument = TextUtils.ExtractArguments(line.trim().trim().toLowerCase());
+        String command = TextUtils.ExtractCommand(line.trim().toLowerCase());
+        String argument = TextUtils.ExtractArguments(line.toLowerCase());
 
         switch (command){
 
@@ -49,6 +49,7 @@ public  class CommandProcessor {
                 break;
 
             default:
+                TextBuffer.Reset();
                 TextBuffer.AddDescription("That doesn't make sense...");
                 break;
         }
@@ -70,6 +71,7 @@ public  class CommandProcessor {
 
     public static void ShowHelp(){
 
+        TextBuffer.Reset();
         TextBuffer.AddItem("Available Commands:");
         TextBuffer.AddItem("--------------------");
         TextBuffer.AddItem("help");

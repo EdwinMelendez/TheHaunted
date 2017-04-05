@@ -149,6 +149,7 @@ public class Player {
 
     public static Room GetCurrentRoom(){
 
+        TextBuffer.Reset();
        // return (Room) Level.rooms.subList(posX,posY);
         return Level.rooms[posX][posY];
     }
