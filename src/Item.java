@@ -31,4 +31,10 @@ public class Item {
     public void setWeight(int weight) {
         this.weight = weight;
     }//getters and setters
+
+    public Item(String title, String pickupText, int weight) {
+        this.title = title;
+        this.pickupText = pickupText;
+        this.weight = weight;
+    }
 }

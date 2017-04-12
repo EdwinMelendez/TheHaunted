@@ -68,7 +68,7 @@ public class Room {
     public Item GetItem(String itemName){
 
         for (Item item : this.items){
-            if (item.getTitle().toLowerCase().equals(itemName.toLowerCase()));
+            if (item.getTitle().toLowerCase().contains(itemName.toLowerCase()));
             return item;
         }
         return null;

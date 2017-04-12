@@ -23,8 +23,10 @@ public class TextUtils {
     public static String ExtractArguments(String line) throws Exception{
 
         int index = line.indexOf(' ');
-        String [] part = line.split(" ");
-        String lastWord = part[part.length - 1];
+//        String [] part = line.trim().split("\\s+");
+//        String lastWord = part[part.length - 1];
+        //String lastWord = line.substring(index + 1, line.length() - index - 1);
+
 
         try {
     if (index == -1) {
@@ -32,7 +34,8 @@ public class TextUtils {
 
     } else {
         //System.out.println(lastWord);
-        return (lastWord);
+        //return (line.substring(index + 1, line.length() - index -1));
+        return line.substring(index);
 
     }
 }catch (Exception e){

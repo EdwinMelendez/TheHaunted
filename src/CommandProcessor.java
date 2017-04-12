@@ -12,12 +12,12 @@ public  class CommandProcessor {
 
     public static void ProcessCommand(String line) throws Exception{
 
-        String command = TextUtils.ExtractCommand(line.toLowerCase().trim());
+        String command = TextUtils.ExtractCommand(line.trim().toLowerCase().trim());
         //System.out.println("command execute");
-        //System.out.println(command);
-        String argument = TextUtils.ExtractArguments(line.substring(1).toLowerCase());
+        System.out.println(command);
+        String argument = TextUtils.ExtractArguments(line.trim().toLowerCase().trim());
         //System.out.println("argument execute");
-        //System.out.println(argument);
+        System.out.println(argument);
         switch (command){
 
             case "exit":
@@ -45,9 +45,11 @@ public  class CommandProcessor {
                 break;
 
             case "inventory":
+                TextBuffer.Reset();
                 Player.DisplayInventory();
                 break;
             case "whereami":
+                TextBuffer.Reset();
                 Player.GetCurrentRoom().ShowTitle();
                 break;
 

@@ -106,6 +106,7 @@ public class Player {
                 TextBuffer.AddItem("Inventory capacity reached. Please drop an item to pick up another.");
                 return;
             }
+
             room.getItems().remove(item);
             Player.inventoryItems.add(item);
             TextBuffer.AddItem(item.getPickupText());
@@ -121,8 +122,9 @@ public class Player {
         Item item = GetInventoryItem(itemName);
 
         if(item != null){
+            room.getItems().add(item);
             Player.inventoryItems.remove(item);
-            room.getItems().remove(item);
+
             TextBuffer.AddItem("The "+ itemName + " has been dropped into this room.");
         }
         else{
@@ -160,7 +162,7 @@ public class Player {
     public static Item GetInventoryItem(String itemName){
 
         for(Item item : inventoryItems){
-            if (item.getTitle().toLowerCase() == itemName.toLowerCase()){
+            if (item.getTitle().toLowerCase().contains(itemName.toLowerCase())){
                 return  item;
             }
         }
