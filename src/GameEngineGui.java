@@ -18,7 +18,7 @@ public class GameEngineGui extends JFrame{
 
     protected GameEngineGui(){
         setContentPane(rootPanel);
-        setSize(new Dimension(450, 450));
+        setSize(new Dimension(600, 600));
         setTitle("The Haunted");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setVisible(true);
@@ -28,6 +28,12 @@ public class GameEngineGui extends JFrame{
         directionList.setEditable(false);
 
 
+        roomDescriptor.setText("Welcome to the Haunted: \n\n" +
+                "You wake up disoriented in a dark musty room. Type 'look' " +
+                "to find out where you are...\n\n" +
+                "Type 'help' anytime to see a list of commands");
+
+
         userInputTextField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -35,6 +41,8 @@ public class GameEngineGui extends JFrame{
                 try {
                     String userInput = userInputTextField.getText();
                     CommandProcessor.ProcessCommand(userInput);
+                    //System.out.println(userInput);
+
                 }catch (Exception E){
                     System.out.println("Error");
                 }

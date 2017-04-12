@@ -70,12 +70,13 @@ public class Player {
 
         if(!room.CanExit(direction)){
             TextBuffer.AddDescription("Invalid Direction");
-            return;
+            //return;
         }
+
 
         Player.moves++;
 
-        switch (direction){
+        switch (direction) {
             case Direction.North:
                 posY--;
                 break;
@@ -89,8 +90,10 @@ public class Player {
                 posX--;
                 break;
         }
-
         Player.GetCurrentRoom().Describe();
+
+
+
     }
 
     public static void PickupItem(String itemName){

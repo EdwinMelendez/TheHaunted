@@ -77,6 +77,7 @@ public class Room {
     public void AddExit(String direction){
 
         if (this.exits.indexOf(direction) == -1){
+            //System.out.println(direction);
             this.exits.add(direction);
         }
 

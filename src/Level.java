@@ -27,7 +27,7 @@ public class Level {
 
         //TODO: Change this method so that it uses txt file or server to update levels
 
-        rooms = new Room[2][1];
+        rooms = new Room[3][2];
 
         Room room;
         Item item = new Item();
@@ -35,17 +35,20 @@ public class Level {
         //create new room
         room = new Room();
         rooms[0][0] = room;
+
         //setup room
         TextBuffer.Reset();
         room.setTitle("Red Room");
         room.setDescription("You've entered a red room");
+
         room.AddExit(Direction.East);
-
-
+        //room.CanExit(Direction.East);
+       // Direction.IsValidDirection(Direction.East);
         /////////////////////////////////////////////////////////////////
 
 
         //create new room
+
         room = new Room();
         rooms[1][0] = room;
         //setup room
@@ -57,7 +60,8 @@ public class Level {
         item.getWeight();
 
         room.AddExit(Direction.West);
-
+        //room.CanExit(Direction.West);
+        //Direction.IsValidDirection(Direction.West);
 
         Player.setPosX(0);
         Player.setPosY(0);

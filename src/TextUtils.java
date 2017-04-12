@@ -4,11 +4,13 @@
 public class TextUtils {
 
 
+
     public static String ExtractCommand (String line){
 
         int index = line.indexOf(' ');
 
-        if (index == -1){
+
+        if (index == - 1){
             return line;
         }
         else {
@@ -21,14 +23,20 @@ public class TextUtils {
     public static String ExtractArguments(String line) throws Exception{
 
         int index = line.indexOf(' ');
-try {
+        String [] part = line.split(" ");
+        String lastWord = part[part.length - 1];
+
+        try {
     if (index == -1) {
         return "";
+
     } else {
-        return (line.substring(index + 1, line.length() - index - 1));
+        //System.out.println(lastWord);
+        return (lastWord);
+
     }
 }catch (Exception e){
-    System.out.println("Error");
+    System.out.println("Error extracting argument");
 }
 
 return "";
