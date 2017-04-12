@@ -70,7 +70,7 @@ public class Player {
 
         if(!room.CanExit(direction)){
             TextBuffer.AddDescription("Invalid Direction");
-            //return;
+            return;
         }
 
 

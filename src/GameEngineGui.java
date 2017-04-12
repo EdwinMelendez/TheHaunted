@@ -44,7 +44,8 @@ public class GameEngineGui extends JFrame{
                     //System.out.println(userInput);
 
                 }catch (Exception E){
-                    System.out.println("Error");
+                    System.out.println(E);
+                    System.out.println("Error moving between rooms");
                 }
             }
         });

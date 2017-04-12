@@ -68,7 +68,7 @@ public class Room {
     public Item GetItem(String itemName){
 
         for (Item item : this.items){
-            if (item.getTitle().toLowerCase() == itemName.toLowerCase());
+            if (item.getTitle().toLowerCase().equals(itemName.toLowerCase()));
             return item;
         }
         return null;
@@ -92,12 +92,14 @@ public class Room {
 
     public Boolean CanExit(String direction){
 
-        for (String validExit : exits) {
-            if(direction == validExit){
-                return true;
-            }
-        }
-        return false;
+        return exits.contains(direction);
+
+//        for (String validExit : exits) {
+//            if(direction.equals(validExit)){
+//                return true;
+//            }
+//        }
+//        return false;
 
     }
 

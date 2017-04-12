@@ -42,8 +42,7 @@ public class Level {
         room.setDescription("You've entered a red room");
 
         room.AddExit(Direction.East);
-        //room.CanExit(Direction.East);
-       // Direction.IsValidDirection(Direction.East);
+
         /////////////////////////////////////////////////////////////////
 
 
@@ -60,8 +59,7 @@ public class Level {
         item.getWeight();
 
         room.AddExit(Direction.West);
-        //room.CanExit(Direction.West);
-        //Direction.IsValidDirection(Direction.West);
+
 
         Player.setPosX(0);
         Player.setPosY(0);
