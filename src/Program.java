@@ -20,7 +20,9 @@ public class Program {
 
         CommandProcessor.gui = gui;
 
-       //if(quit) System.exit(0);
+       if(quit == true){
+           GameManager.EndGame();
+       }
 
 
     }

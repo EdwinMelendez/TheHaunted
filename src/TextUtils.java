@@ -14,7 +14,7 @@ public class TextUtils {
             return line;
         }
         else {
-            return line.substring(0, index);
+            return line.substring(0, index).trim();
         }
 
     }
@@ -35,7 +35,7 @@ public class TextUtils {
     } else {
         //System.out.println(lastWord);
         //return (line.substring(index + 1, line.length() - index -1));
-        return line.substring(index);
+        return line.substring(index).trim();
 
     }
 }catch (Exception e){

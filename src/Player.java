@@ -101,6 +101,11 @@ public class Player {
         Room room = Player.GetCurrentRoom();
         Item item = room.GetItem(itemName);
 
+        if (itemName.equals("")){
+            TextBuffer.AddItem("Which item?");
+            return;
+        }
+
         if(item != null){
             if (Player.getInventoryWeight() + item.getWeight() > Player.weightCap){
                 TextBuffer.AddItem("Inventory capacity reached. Please drop an item to pick up another.");

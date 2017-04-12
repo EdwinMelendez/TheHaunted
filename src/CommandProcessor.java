@@ -12,16 +12,16 @@ public  class CommandProcessor {
 
     public static void ProcessCommand(String line) throws Exception{
 
-        String command = TextUtils.ExtractCommand(line.trim().toLowerCase().trim());
+        String command = TextUtils.ExtractCommand(line.toLowerCase());
         //System.out.println("command execute");
         System.out.println(command);
-        String argument = TextUtils.ExtractArguments(line.trim().toLowerCase().trim());
+        String argument = TextUtils.ExtractArguments(line.toLowerCase());
         //System.out.println("argument execute");
         System.out.println(argument);
         switch (command){
 
             case "exit":
-                Program.quit = true;
+                GameManager.EndGame();
                 break;
 
             case "help":

@@ -37,4 +37,13 @@ public class Item {
         this.pickupText = pickupText;
         this.weight = weight;
     }
+
+    @Override
+    public String toString() {
+        return "Item{" +
+                "title='" + title + '\'' +
+                ", pickupText='" + pickupText + '\'' +
+                ", weight=" + weight +
+                '}';
+    }
 }
