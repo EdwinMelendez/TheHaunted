@@ -9,6 +9,8 @@ public class Room {
     private ArrayList<String> exits;
     private ArrayList<Item> items;
 
+    private int x,y;
+
     public String getTitle() {
         return title;
     }
@@ -41,8 +43,35 @@ public class Room {
         this.items = items;
     }
 
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
     //getters and setters
 
+    public void addItem (Item item){
+        items.add(item);
+    }
+
+
+    public Room(String title, String description, int x, int y) {
+        this.title = title;
+        this.description = description;
+        this.x = x;
+        this.y = y;
+    }
 
     public Room() {
         exits = new ArrayList<String>();

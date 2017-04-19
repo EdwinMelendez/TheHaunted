@@ -26,6 +26,9 @@ public class Level {
     private static void BuildLevel(){
 
 
+        databaseRooms = Database.loadRooms();
+        databaseItems = Database.loadItems();
+
 //        //List of room names and items
 //        rooms = new Room[3][2];
 //        Room grandFoyer;

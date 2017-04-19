@@ -4,13 +4,15 @@ import java.sql.Connection;
 import java.sql.DatabaseMetaData;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.util.ArrayList;
 
 
 public class Database {
 
+ Connection conn = ;
 
     public static void connect() {
-        Connection conn = null;
+        //Connection conn = null;
         try {
             // db parameters
             String url = "jdbc:sqlite:C:/sqlite/db/Game.db";
@@ -38,6 +40,18 @@ public class Database {
 
 
         connect();
+
     }
 
+    public static ArrayList<Room> loadRooms() {
+
+
+
+
+    }
+
+    public static void loadItems() {
+
+
+    }
 }
