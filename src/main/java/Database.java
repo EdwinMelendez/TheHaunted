@@ -12,7 +12,7 @@ public class Database {
 //        Connection conn = null;
         try {
             // db parameters
-            String url = "jdbc:sqlite:Level.db";
+            String url = "jdbc:sqlite:Game.db";
             // create a connection to the database
             conn = DriverManager.getConnection(url);
 
@@ -43,12 +43,12 @@ public class Database {
         try {
             connect();
 
-            String allRoomsSql = "SELECT * FROM rooms";
+            String allRoomsSql = "SELECT * FROM Rooms";
             Statement statement = conn.createStatement();
 
             ResultSet allRoomsRS = statement.executeQuery(allRoomsSql);
 
-            ArrayList<Room> rooms = new ArrayList<>();
+            ArrayList<Room> rooms = new ArrayList<Room>();
 
             while (allRoomsRS.next()) {
 
@@ -99,8 +99,38 @@ public class Database {
 
     public static ArrayList<Item> loadItems() {
 
-        // TODO
+        try {
+            connect();
+
+            String allItemsSql = "SELECT * FROM Items";
+            Statement statement = conn.createStatement();
+
+            ResultSet allItemsRS = statement.executeQuery(allItemsSql);
+
+            ArrayList<Item> items = new ArrayList<Item>();
+
+            while (allItemsRS.next()) {
+
+                String title = allItemsRS.getString("title");
+                String pickuptxt = allItemsRS.getString("pickuptxt");
+                Integer weight = allItemsRS.getInt("weight");
+                String room  = allItemsRS.getString("room");
+
+                Item item = new Item(title, pickuptxt, weight, room);
+
+                items.add(item);
+
+            }
+
+            disconnect();
+
+            return items;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
 
         return null;
+
     }
 }

@@ -27,7 +27,8 @@ public class Level {
 
         ArrayList<Room> databaseRooms = Database.loadRooms();
         ArrayList<Item> databaseItems = Database.loadItems();
-
+//        databaseRooms = Database.loadRooms();
+//        databaseItems = Database.loadItems();
 
         for (Item item : databaseItems) {
             for (Room room : databaseRooms) {
@@ -51,8 +52,7 @@ public class Level {
         }
 
 
-        databaseRooms = Database.loadRooms();
-        databaseItems = Database.loadItems();
+
 
 //        //List of room names and items
 //        rooms = new Room[3][2];
