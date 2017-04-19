@@ -1,21 +1,18 @@
 
 
-import java.sql.Connection;
-import java.sql.DatabaseMetaData;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 
 public class Database {
 
- Connection conn = ;
+    static Connection conn;
 
     public static void connect() {
-        //Connection conn = null;
+//        Connection conn = null;
         try {
             // db parameters
-            String url = "jdbc:sqlite:C:/sqlite/db/Game.db";
+            String url = "jdbc:sqlite:Level.db";
             // create a connection to the database
             conn = DriverManager.getConnection(url);
 
@@ -24,34 +21,86 @@ public class Database {
 
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-        } finally {
+//        } finally {
+//            try {
+//                if (conn != null) {
+//                    conn.close();
+//                }
+//            } catch (SQLException ex) {
+//                System.out.println(ex.getMessage());
+//            }
+        }
+    }
+
+//    public static void main(String[] args) {
+//
+//
+//        connect();
+//    }
+
+    public static ArrayList<Room> loadRooms() {
+
+        try {
+            connect();
+
+            String allRoomsSql = "SELECT * FROM rooms";
+            Statement statement = conn.createStatement();
+
+            ResultSet allRoomsRS = statement.executeQuery(allRoomsSql);
+
+            ArrayList<Room> rooms = new ArrayList<>();
+
+            while (allRoomsRS.next()) {
+
+                String title = allRoomsRS.getString("title");
+                String description = allRoomsRS.getString("description");
+
+                int x = allRoomsRS.getInt("x");
+                int y = allRoomsRS.getInt("y");
+
+                Room room = new Room(title, description, x , y);
+
+                boolean north = allRoomsRS.getBoolean("N");
+                boolean south = allRoomsRS.getBoolean("S");
+                boolean east = allRoomsRS.getBoolean("E");
+                boolean west = allRoomsRS.getBoolean("W");
+
+                if (north) { room.AddExit(Direction.North); }
+                if (south) { room.AddExit(Direction.South); }
+                if (east) { room.AddExit(Direction.East); }
+                if (west) { room.AddExit(Direction.West); }
+
+
+                rooms.add(room);
+
+            }
+
+            disconnect();
+
+            return rooms;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    private static void disconnect() {
+
+        if (conn != null) {
             try {
-                if (conn != null) {
-                    conn.close();
-                }
-            } catch (SQLException ex) {
-                System.out.println(ex.getMessage());
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
             }
         }
     }
 
+    public static ArrayList<Item> loadItems() {
 
-    public static void main(String[] args) {
+        // TODO
 
-
-        connect();
-
-    }
-
-    public static ArrayList<Room> loadRooms() {
-
-
-
-
-    }
-
-    public static void loadItems() {
-
-
+        return null;
     }
 }

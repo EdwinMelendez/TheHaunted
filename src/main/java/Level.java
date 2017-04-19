@@ -25,6 +25,31 @@ public class Level {
 
     private static void BuildLevel(){
 
+        ArrayList<Room> databaseRooms = Database.loadRooms();
+        ArrayList<Item> databaseItems = Database.loadItems();
+
+
+        for (Item item : databaseItems) {
+            for (Room room : databaseRooms) {
+                if (room.getTitle().equals(item.getTitle())) {
+                    room.addItem(item);
+                }
+            }
+        }
+
+        // Add rooms to correct place in 2D array
+
+        rooms = new Room[2][3];     // TODO figure out actual size of level and use that to create 2d array
+
+        for (Room room : databaseRooms) {
+
+            int x = room.getX();
+            int y = room.getY();
+
+            rooms[x][y] = room;
+
+        }
+
 
         databaseRooms = Database.loadRooms();
         databaseItems = Database.loadItems();
