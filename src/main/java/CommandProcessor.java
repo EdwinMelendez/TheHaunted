@@ -16,45 +16,36 @@ public  class CommandProcessor {
         String argument = TextUtils.ExtractArguments(line.toLowerCase());
         //System.out.println("argument execute");
         System.out.println(argument);
-        switch (command){
+        if (command.equals("exit")) {
+            GameManager.EndGame();
 
-            case "exit":
-                GameManager.EndGame();
-                break;
+        } else if (command.equals("help")) {
+            ShowHelp();
 
-            case "help":
-                ShowHelp();
-                break;
+        } else if (command.equals("move")) {
+            Player.Move(argument);
 
-            case "move":
-                Player.Move(argument);
-                break;
+        } else if (command.equals("look")) {
+            Player.GetCurrentRoom().Describe();
 
-            case "look":
-                Player.GetCurrentRoom().Describe();
-                break;
+        } else if (command.equals("pickup")) {
+            Player.PickupItem(argument);
 
-            case "pickup":
-                Player.PickupItem(argument);
-                break;
+        } else if (command.equals("drop")) {
+            Player.DropItem(argument);
 
-            case "drop":
-                Player.DropItem(argument);
-                break;
+        } else if (command.equals("inventory")) {
+            TextBuffer.Reset();
+            Player.DisplayInventory();
 
-            case "inventory":
-                TextBuffer.Reset();
-                Player.DisplayInventory();
-                break;
-            case "whereami":
-                TextBuffer.Reset();
-                Player.GetCurrentRoom().ShowTitle();
-                break;
+        } else if (command.equals("whereami")) {
+            TextBuffer.Reset();
+            Player.GetCurrentRoom().ShowTitle();
 
-            default:
-                TextBuffer.Reset();
-                TextBuffer.AddDescription("That doesn't make sense...");
-                break;
+        } else {
+            TextBuffer.Reset();
+            TextBuffer.AddDescription("That doesn't make sense...");
+
         }
         GameManager.ApplyRules();
         //TextBuffer.Reset();

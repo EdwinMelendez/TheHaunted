@@ -9,7 +9,7 @@ public class Player {
     private static int posX;
     private static int posY;
 
-    private static ArrayList<Item> inventoryItems = new ArrayList<>();
+    private static ArrayList<Item> inventoryItems = new ArrayList<Item>();
     private static int moves = 0;
     private static int weightCap = 6;
 
@@ -76,19 +76,18 @@ public class Player {
 
         Player.moves++;
 
-        switch (direction) {
-            case Direction.North:
-                posY--;
-                break;
-            case Direction.South:
-                posY++;
-                break;
-            case Direction.East:
-                posX++;
-                break;
-            case Direction.West:
-                posX--;
-                break;
+        if (direction.equals(Direction.North)) {
+            posY--;
+
+        } else if (direction.equals(Direction.South)) {
+            posY++;
+
+        } else if (direction.equals(Direction.East)) {
+            posX++;
+
+        } else if (direction.equals(Direction.West)) {
+            posX--;
+
         }
         Player.GetCurrentRoom().Describe();
 
