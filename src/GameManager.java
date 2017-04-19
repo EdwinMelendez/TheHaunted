@@ -26,6 +26,8 @@ public class GameManager {
 
     public static void ApplyRules(){
 
+
+
         //TextBuffer.Reset();
     }
 
