@@ -1,9 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Created by DarthVader on 3/22/17.
- */
+
 public  class CommandProcessor {
 
 
