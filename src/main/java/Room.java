@@ -9,6 +9,8 @@ public class Room {
     private ArrayList<String> exits;
     private ArrayList<Item> items;
 
+    private int x, y;
+
     public String getTitle() {
         return title;
     }
@@ -44,6 +46,12 @@ public class Room {
     //getters and setters
 
 
+    public Room(String title, String description, int x ,int y) {
+        this();
+        this.title = title;
+        this.description = description;
+    }
+
     public Room() {
         exits = new ArrayList<String>();
         items = new ArrayList<Item>();
@@ -70,6 +78,12 @@ public class Room {
         }
         return null;
     }
+
+
+    public void addItem(Item item) {
+        items.add(item);
+    }
+
 
     public void AddExit(String direction){
 
@@ -137,7 +151,23 @@ public class Room {
 
     }
 
-//    private String GetCoordinates(){
+    public int getX() {
+        return x;
+    }
+
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
+
+    //    private String GetCoordinates(){
 //
 //        for (int x = 0; x < Level.getRooms().toArray().length; x++){
 //            for (int y = 0; y < Level.getRooms().toArray().length; y++){
