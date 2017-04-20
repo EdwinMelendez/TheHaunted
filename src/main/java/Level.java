@@ -23,7 +23,7 @@ public class Level {
         BuildLevel();
     }
 
-    private static void BuildLevel(){
+    private static void BuildLevel() throws NullPointerException{
 
         ArrayList<Room> databaseRooms = Database.loadRooms();
         ArrayList<Item> databaseItems = Database.loadItems();
@@ -31,8 +31,10 @@ public class Level {
 //        databaseItems = Database.loadItems();
 
         for (Item item : databaseItems) {
+
             for (Room room : databaseRooms) {
-                if (room.getTitle().equals(item.getTitle())) {
+
+                if (room.getTitle().equals(item.getRoom())) {
                     room.addItem(item);
                 }
             }

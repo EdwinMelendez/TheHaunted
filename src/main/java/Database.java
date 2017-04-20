@@ -12,6 +12,13 @@ public class Database {
 //        Connection conn = null;
         try {
             // db parameters
+
+
+            try {
+                Class.forName("org.sqlite.JDBC");
+            } catch (ClassNotFoundException e) {
+                e.printStackTrace();
+            }
             String url = "jdbc:sqlite:Game.db";
             // create a connection to the database
             conn = DriverManager.getConnection(url);
@@ -60,10 +67,10 @@ public class Database {
 
                 Room room = new Room(title, description, x , y);
 
-                boolean north = allRoomsRS.getBoolean("N");
-                boolean south = allRoomsRS.getBoolean("S");
-                boolean east = allRoomsRS.getBoolean("E");
-                boolean west = allRoomsRS.getBoolean("W");
+                boolean north = allRoomsRS.getBoolean("north");
+                boolean south = allRoomsRS.getBoolean("south");
+                boolean east = allRoomsRS.getBoolean("east");
+                boolean west = allRoomsRS.getBoolean("west");
 
                 if (north) { room.AddExit(Direction.North); }
                 if (south) { room.AddExit(Direction.South); }
