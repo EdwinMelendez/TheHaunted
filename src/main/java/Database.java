@@ -65,18 +65,29 @@ public class Database {
                 int x = allRoomsRS.getInt("x");
                 int y = allRoomsRS.getInt("y");
 
-                Room room = new Room(title, description, x , y);
+
+                Room room = new Room(title, description, x, y);
 
                 boolean north = allRoomsRS.getBoolean("north");
                 boolean south = allRoomsRS.getBoolean("south");
                 boolean east = allRoomsRS.getBoolean("east");
                 boolean west = allRoomsRS.getBoolean("west");
 
-                if (north) { room.AddExit(Direction.North); }
-                if (south) { room.AddExit(Direction.South); }
-                if (east) { room.AddExit(Direction.East); }
-                if (west) { room.AddExit(Direction.West); }
+                if (north) {
+                    room.AddExit(Direction.North);
+                }
+                if (south) {
+                    room.AddExit(Direction.South);
+                }
+                if (east) {
+                    room.AddExit(Direction.East);
+                }
+                if (west) {
+                    room.AddExit(Direction.West);
+                }
 
+                room.setX(x);
+                room.setY(y);
 
                 rooms.add(room);
 
@@ -121,7 +132,7 @@ public class Database {
                 String title = allItemsRS.getString("title");
                 String pickuptxt = allItemsRS.getString("pickuptxt");
                 Integer weight = allItemsRS.getInt("weight");
-                String room  = allItemsRS.getString("room");
+                String room = allItemsRS.getString("room");
 
                 Item item = new Item(title, pickuptxt, weight, room);
 
@@ -140,4 +151,110 @@ public class Database {
         return null;
 
     }
+
+    public static ArrayList<Room> loadChangedRooms() {
+
+        try {
+            connect();
+
+            String allChangedRoomsSql = "SELECT * FROM ChangedRooms";
+            Statement statement = conn.createStatement();
+
+            ResultSet allChangedRoomsRS = statement.executeQuery(allChangedRoomsSql);
+
+            ArrayList<Room> changeRooms = new ArrayList<Room>();
+
+            while (allChangedRoomsRS.next()) {
+
+                String title = allChangedRoomsRS.getString("title");
+                String description = allChangedRoomsRS.getString("description");
+
+                int x = allChangedRoomsRS.getInt("x");
+                int y = allChangedRoomsRS.getInt("y");
+
+
+                Room changedRoom = new Room(title, description, x, y);
+
+                boolean north = allChangedRoomsRS.getBoolean("north");
+                boolean south = allChangedRoomsRS.getBoolean("south");
+                boolean east = allChangedRoomsRS.getBoolean("east");
+                boolean west = allChangedRoomsRS.getBoolean("west");
+
+                if (north) {
+                    changedRoom.AddExit(Direction.North);
+                }
+                if (south) {
+                    changedRoom.AddExit(Direction.South);
+                }
+                if (east) {
+                    changedRoom.AddExit(Direction.East);
+                }
+                if (west) {
+                    changedRoom.AddExit(Direction.West);
+                }
+
+                changedRoom.setX(x);
+                changedRoom.setY(y);
+
+                changeRooms.add(changedRoom);
+
+            }
+
+            disconnect();
+
+            return changeRooms;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+
+    public static ArrayList<LockedDoor> loadExits(String roomN){
+
+        try {
+            connect();
+
+            String allLocksSql = "SELECT * FROM LockedDoors WHERE RoomName = ?";
+
+
+            //Statement statement = conn.createStatement();
+
+
+            PreparedStatement lockQuery = conn.prepareStatement(allLocksSql);
+
+
+            lockQuery.setString(1, roomN);
+
+
+            ResultSet allLocksRS = lockQuery.executeQuery(allLocksSql);
+
+            ArrayList<LockedDoor> locks = new ArrayList<LockedDoor>();
+
+            while(allLocksRS.next()){
+                String roomName = allLocksRS.getString("RoomName");
+                String lockedDirection = allLocksRS.getString("LockedDirection");
+                String itemNeeded = allLocksRS.getNString("ItemNeeded");
+
+                LockedDoor lockedDoor = new LockedDoor(roomName,lockedDirection,itemNeeded.split(","));
+
+                locks.add(lockedDoor);
+            }
+
+
+            disconnect();
+
+            return locks;
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+
+    }
+
+
 }

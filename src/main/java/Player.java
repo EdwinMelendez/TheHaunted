@@ -77,16 +77,16 @@ public class Player {
         Player.moves++;
 
         if (direction.equals(Direction.North)) {
-            posY--;
+            posX--;
 
         } else if (direction.equals(Direction.South)) {
-            posY++;
-
-        } else if (direction.equals(Direction.East)) {
             posX++;
 
+        } else if (direction.equals(Direction.East)) {
+            posY++;
+
         } else if (direction.equals(Direction.West)) {
-            posX--;
+            posY--;
 
         }
         Player.GetCurrentRoom().Describe();

@@ -24,6 +24,7 @@ public  class CommandProcessor {
 
         } else if (command.equals("move")) {
             Player.Move(argument);
+            GameManager.ApplyRules();
 
         } else if (command.equals("look")) {
             Player.GetCurrentRoom().Describe();
@@ -33,6 +34,7 @@ public  class CommandProcessor {
 
         } else if (command.equals("drop")) {
             Player.DropItem(argument);
+            GameManager.ApplyRules();
 
         } else if (command.equals("inventory")) {
             TextBuffer.Reset();
