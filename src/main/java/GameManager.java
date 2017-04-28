@@ -11,6 +11,7 @@ public class GameManager {
         System.out.println("Welcome to The Haunted");
     }
 
+    public static Room[][] updatedRoom;
 
     public static void StartGame(){
 
@@ -27,28 +28,38 @@ public class GameManager {
 
     public static void ApplyRules() throws NullPointerException{
 
-        ArrayList<Room> databaseRooms = Database.loadRooms();
-       ArrayList<Item> databaseItems = Database.loadItems();
-       ArrayList<Room> databaseChangedRooms = Database.loadChangedRooms();
+        ArrayList<Room> databaseNewRooms = Database.doorQuery();
+       //ArrayList<Item> databaseItems = Database.loadItems();
+       //ArrayList<Room> databaseChangedRooms = Database.loadChangedRooms();
         ArrayList<LockedDoor>  databaseLocks = Database.loadExits(Player.GetCurrentRoom().getTitle());
 
+try {
+    for (LockedDoor lock : databaseLocks) {
 
-        for (LockedDoor lock : databaseLocks){
+        boolean unlock = true;
 
-            for (String itemRequired : lock.getItemNeeded()){
+        for (String itemRequired : lock.getItemNeeded()) {
 
-                for ( Item itemsInRoom : Player.GetCurrentRoom().getItems() ) {
-
-                    if (itemRequired.equalsIgnoreCase(itemsInRoom.getTitle())){
-
-
-                    }
-
-
-
-                }
-
+            if (!Player.GetCurrentRoom().getItems().contains(itemRequired.split(","))) {
+                unlock = false;
+                break;
             }
+
+        }
+        if (unlock) {
+
+            for (Room room : databaseNewRooms) {
+                room.getDescription();
+                room.getExits();
+                room.getX();
+                room.getY();
+            }
+        }
+
+    }
+}catch (NullPointerException npe){
+    npe.printStackTrace();
+}
         }
 
 
@@ -59,4 +70,4 @@ public class GameManager {
         //TextBuffer.Reset();
     }
 
-}
+

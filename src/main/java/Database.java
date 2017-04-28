@@ -257,4 +257,66 @@ public class Database {
     }
 
 
+    public static ArrayList<Room> doorQuery(){
+
+        try{
+            connect();
+
+            String query = "SELECT description, east, west, north, south, x, y " +
+                    "FROM ChangedRooms WHERE variant = title IN Rooms AND " +
+                    "LockedDirection IN LockedDoors LIKE newDirection IN ChangedRooms";
+            PreparedStatement descriptionQuery = conn.prepareStatement(query);
+
+            ResultSet doorRs = descriptionQuery.executeQuery(query);
+
+
+            ArrayList<Room> newExit = new ArrayList<Room>();
+
+            while (doorRs.next()){
+                String variant = doorRs.getString("variant");
+                String description = doorRs.getString("description");
+
+                int x = doorRs.getInt("x");
+                int y = doorRs.getInt("y");
+
+
+                Room newDoor = new Room(variant, description, x, y);
+
+                boolean north = doorRs.getBoolean("north");
+                boolean south = doorRs.getBoolean("south");
+                boolean east = doorRs.getBoolean("east");
+                boolean west = doorRs.getBoolean("west");
+
+                if (north) {
+                    newDoor.AddExit(Direction.North);
+                }
+                if (south) {
+                    newDoor.AddExit(Direction.South);
+                }
+                if (east) {
+                    newDoor.AddExit(Direction.East);
+                }
+                if (west) {
+                    newDoor.AddExit(Direction.West);
+                }
+
+                newDoor.setX(x);
+                newDoor.setY(y);
+
+                newExit.add(newDoor);
+            }
+
+
+            disconnect();
+
+            return newExit;
+
+        }catch (SQLException dq){
+            dq.printStackTrace();
+        }
+
+return null;
+
+    }
+
 }
