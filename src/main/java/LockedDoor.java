@@ -5,7 +5,7 @@ public class LockedDoor {
 
     private String roomName;
     private String lockedDirection;
-    private String[] itemNeeded;
+    private String itemNeeded;
 
     public String getRoomName() {
         return roomName;
@@ -23,15 +23,15 @@ public class LockedDoor {
         this.lockedDirection = lockedDirection;
     }
 
-    public String[] getItemNeeded() {
+    public String getItemNeeded() {
         return itemNeeded;
     }
 
-    public void setItemNeeded(String[] itemNeeded) {
+    public void setItemNeeded(String itemNeeded) {
         this.itemNeeded = itemNeeded;
     }
 
-    public LockedDoor(String roomName, String lockedDirection, String[] itemNeeded) {
+    public LockedDoor(String roomName, String lockedDirection, String itemNeeded) {
         this.roomName = roomName;
         this.lockedDirection = lockedDirection;
         this.itemNeeded = itemNeeded;

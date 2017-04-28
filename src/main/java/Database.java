@@ -50,7 +50,7 @@ public class Database {
         try {
             connect();
 
-            String allRoomsSql = "SELECT * FROM Rooms";
+            String allRoomsSql = "SELECT title, description, east, west, north, south, x, y FROM Rooms";
             Statement statement = conn.createStatement();
 
             ResultSet allRoomsRS = statement.executeQuery(allRoomsSql);
@@ -238,7 +238,7 @@ public class Database {
                 String lockedDirection = allLocksRS.getString("LockedDirection");
                 String itemNeeded = allLocksRS.getNString("ItemNeeded");
 
-                LockedDoor lockedDoor = new LockedDoor(roomName,lockedDirection,itemNeeded.split(","));
+                LockedDoor lockedDoor = new LockedDoor(roomName,lockedDirection,itemNeeded);
 
                 locks.add(lockedDoor);
             }
@@ -264,7 +264,7 @@ public class Database {
 
             String query = "SELECT description, east, west, north, south, x, y " +
                     "FROM ChangedRooms WHERE variant = title IN Rooms AND " +
-                    "LockedDirection IN LockedDoors LIKE newDirection IN ChangedRooms";
+                    "(SELECT LockedDirection FROM LockedDoors WHERE LockedDirection = newDirection IN ChangedRooms)";
             PreparedStatement descriptionQuery = conn.prepareStatement(query);
 
             ResultSet doorRs = descriptionQuery.executeQuery(query);
@@ -318,5 +318,8 @@ public class Database {
 return null;
 
     }
+
+
+
 
 }

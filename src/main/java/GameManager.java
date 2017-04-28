@@ -38,25 +38,22 @@ try {
 
         boolean unlock = true;
 
-        for (String itemRequired : lock.getItemNeeded()) {
+        String itemRequired = lock.getItemNeeded();
 
-            if (!Player.GetCurrentRoom().getItems().contains(itemRequired.split(","))) {
+            if (!Player.GetCurrentRoom().getItems().contains(itemRequired)) {
                 unlock = false;
                 break;
             }
 
-        }
         if (unlock) {
 
-            for (Room room : databaseNewRooms) {
-                room.getDescription();
-                room.getExits();
-                room.getX();
-                room.getY();
-            }
+
         }
 
     }
+
+
+
 }catch (NullPointerException npe){
     npe.printStackTrace();
 }
