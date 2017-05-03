@@ -27,44 +27,34 @@ public class GameManager {
         System.exit(0);
     }
 
-    public static void ApplyRules() throws NullPointerException {
+    public static void ApplyRules() {
 
         //ArrayList<Room> databaseRooms = Database.loadRooms();
         ArrayList<Room> databaseChangedRooms = Database.loadChangedRooms();
 
         ArrayList<LockedDoor> databaseLocks = Database.loadExits(Player.GetCurrentRoom().getTitle());
 
-        Boolean lock = true;
-
 
         for (LockedDoor lockedDoor : databaseLocks){
 
-            String itemRequired = lockedDoor.getItemNeeded();
+        String itemRequired = lockedDoor.getItemNeeded();
 
-            if (Player.GetCurrentRoom().doesContain(itemRequired)){
+        if (Player.GetCurrentRoom().doesContain(itemRequired)){
 
-                for (Room room : Level.databaseRooms){
+           Room roomChanged = Database.unlockedRoom(lockedDoor.getRoomName());
 
-                    for(Room changedRoom : databaseChangedRooms){
+            for(Room room : Level.databaseRooms){
 
-                        if(room.getVariant().equals(changedRoom.getVariant())){
+                room.setExits(roomChanged.getExits());
 
-                            room.setExits(changedRoom.getExits());
-                            room.setDescription(changedRoom.getDescription());
-
-                        }
-
-
-                    }
-                }
+                room.setDescription(roomChanged.getDescription());
             }
-            else if(!Player.GetCurrentRoom().getItems().contains(itemRequired)){
-                lock = false;
-                break;
-            }
+
 
         }
 
+
+        }
 
        }
 

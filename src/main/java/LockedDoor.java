@@ -1,3 +1,6 @@
+import java.util.ArrayList;
+import java.util.concurrent.locks.Lock;
+
 /**
  * Created by DarthVader on 4/26/17.
  */
@@ -6,6 +9,16 @@ public class LockedDoor {
     private String roomName;
     private String lockedDirection;
     private String itemNeeded;
+
+    private ArrayList<String> newExits;
+
+    public ArrayList<String> getNewExits() {
+        return newExits;
+    }
+
+    public void setNewExits(ArrayList<String> newExits) {
+        this.newExits = newExits;
+    }
 
     public String getRoomName() {
         return roomName;
@@ -35,6 +48,24 @@ public class LockedDoor {
         this.roomName = roomName;
         this.lockedDirection = lockedDirection;
         this.itemNeeded = itemNeeded;
+    }
+
+    public LockedDoor(){
+        newExits = new ArrayList<String>();
+    }
+
+    public Boolean CanExitNewRoom(String direction) {
+
+        return newExits.contains(direction);
+    }
+
+    public void AddExitNewRoom(String direction){
+
+        if (this.newExits.indexOf(direction) == -1){
+            //System.out.println(direction);
+            this.newExits.add(direction);
+        }
+
     }
 
     @Override

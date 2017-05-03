@@ -9,7 +9,7 @@ public class Room {
     private ArrayList<String> exits;
     private ArrayList<Item> items;
 
-    private  ArrayList<String> newExits;
+
     private String variant;
 
     private int x, y;
@@ -46,13 +46,7 @@ public class Room {
         this.items = items;
     }
 
-    public ArrayList<String> getNewExits() {
-        return newExits;
-    }
 
-    public void setNewExits(ArrayList<String> newExits) {
-        this.newExits = newExits;
-    }
 
     public String getVariant() {
         return variant;
@@ -75,7 +69,7 @@ public class Room {
     public Room() {
         exits = new ArrayList<String>();
         items = new ArrayList<Item>();
-        newExits = new ArrayList<String>();
+
     }
 
 
