@@ -26,38 +26,45 @@ public class GameManager {
         System.exit(0);
     }
 
-    public static void ApplyRules() throws NullPointerException{
+    public static void ApplyRules()  {
 
-        ArrayList<Room> databaseNewRooms = Database.doorQuery();
-       //ArrayList<Item> databaseItems = Database.loadItems();
-       //ArrayList<Room> databaseChangedRooms = Database.loadChangedRooms();
-        ArrayList<LockedDoor>  databaseLocks = Database.loadExits(Player.GetCurrentRoom().getTitle());
+        ArrayList<Room> databaseRooms = Database.loadRooms();
+        ArrayList<Room> databaseChangedRooms = Database.loadChangedRooms();
+        ArrayList<LockedDoor> databaseLocks = Database.loadExits(Player.GetCurrentRoom().getTitle());
 
-try {
-    for (LockedDoor lock : databaseLocks) {
+        Boolean lock = true;
 
-        boolean unlock = true;
 
-        String itemRequired = lock.getItemNeeded();
+        for (LockedDoor lockedDoor : databaseLocks){
 
-            if (!Player.GetCurrentRoom().getItems().contains(itemRequired)) {
-                unlock = false;
+            String itemRequired = lockedDoor.getItemNeeded();
+
+            if (Player.GetCurrentRoom().getItems().contains(itemRequired)){
+
+                for (Room room : databaseRooms){
+
+                    for(Room changedRoom : databaseChangedRooms){
+
+                        if(room.getVariant().equals(changedRoom.getVariant())){
+
+                            room.setExits(changedRoom.getExits());
+                            room.setDescription(changedRoom.getDescription());
+
+                        }
+
+
+                    }
+                }
+            }
+            else if(!Player.GetCurrentRoom().getItems().contains(itemRequired)){
+                lock = false;
                 break;
             }
 
-        if (unlock) {
-
-
         }
 
-    }
 
-
-
-}catch (NullPointerException npe){
-    npe.printStackTrace();
-}
-        }
+       }
 
 
 

@@ -23,7 +23,8 @@ public class Level {
         BuildLevel();
     }
 
-    private static void BuildLevel() throws NullPointerException{
+    private static void BuildLevel() {
+
         //initialize start position
         Player.setPosX(0);
         Player.setPosY(0);
@@ -45,7 +46,7 @@ public class Level {
 
         // Add rooms to correct place in 2D array
 
-        rooms = new Room[3][4];     // TODO figure out actual size of level and use that to create 2d array
+        rooms = new Room[2][4];     // TODO figure out actual size of level and use that to create 2d array
 
         for (Room room : databaseRooms) {
 

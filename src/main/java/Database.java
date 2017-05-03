@@ -19,7 +19,7 @@ public class Database {
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-            String url = "jdbc:sqlite:Game.db";
+            String url = "jdbc:sqlite:ColorsGame.db";
             // create a connection to the database
             conn = DriverManager.getConnection(url);
 
@@ -50,7 +50,7 @@ public class Database {
         try {
             connect();
 
-            String allRoomsSql = "SELECT title, description, east, west, north, south, x, y FROM Rooms";
+            String allRoomsSql = "SELECT * FROM Rooms";
             Statement statement = conn.createStatement();
 
             ResultSet allRoomsRS = statement.executeQuery(allRoomsSql);
@@ -61,12 +61,13 @@ public class Database {
 
                 String title = allRoomsRS.getString("title");
                 String description = allRoomsRS.getString("description");
+                String variant = allRoomsRS.getString("variant");
 
                 int x = allRoomsRS.getInt("x");
                 int y = allRoomsRS.getInt("y");
 
 
-                Room room = new Room(title, description, x, y);
+                Room room = new Room(title, description, x, y, variant);
 
                 boolean north = allRoomsRS.getBoolean("north");
                 boolean south = allRoomsRS.getBoolean("south");
@@ -130,7 +131,7 @@ public class Database {
             while (allItemsRS.next()) {
 
                 String title = allItemsRS.getString("title");
-                String pickuptxt = allItemsRS.getString("pickuptxt");
+                String pickuptxt = allItemsRS.getString("description");
                 Integer weight = allItemsRS.getInt("weight");
                 String room = allItemsRS.getString("room");
 
@@ -157,6 +158,7 @@ public class Database {
         try {
             connect();
 
+
             String allChangedRoomsSql = "SELECT * FROM ChangedRooms";
             Statement statement = conn.createStatement();
 
@@ -166,14 +168,17 @@ public class Database {
 
             while (allChangedRoomsRS.next()) {
 
+                String variant = allChangedRoomsRS.getString("variant");
                 String title = allChangedRoomsRS.getString("title");
                 String description = allChangedRoomsRS.getString("description");
+
+
 
                 int x = allChangedRoomsRS.getInt("x");
                 int y = allChangedRoomsRS.getInt("y");
 
 
-                Room changedRoom = new Room(title, description, x, y);
+                Room changedRoom = new Room(title, description, x, y, variant);
 
                 boolean north = allChangedRoomsRS.getBoolean("north");
                 boolean south = allChangedRoomsRS.getBoolean("south");
@@ -257,67 +262,7 @@ public class Database {
     }
 
 
-    public static ArrayList<Room> doorQuery(){
 
-        try{
-            connect();
-
-            String query = "SELECT description, east, west, north, south, x, y " +
-                    "FROM ChangedRooms WHERE variant = title IN Rooms AND " +
-                    "(SELECT LockedDirection FROM LockedDoors WHERE LockedDirection = newDirection IN ChangedRooms)";
-            PreparedStatement descriptionQuery = conn.prepareStatement(query);
-
-            ResultSet doorRs = descriptionQuery.executeQuery(query);
-
-
-            ArrayList<Room> newExit = new ArrayList<Room>();
-
-            while (doorRs.next()){
-                String variant = doorRs.getString("variant");
-                String description = doorRs.getString("description");
-
-                int x = doorRs.getInt("x");
-                int y = doorRs.getInt("y");
-
-
-                Room newDoor = new Room(variant, description, x, y);
-
-                boolean north = doorRs.getBoolean("north");
-                boolean south = doorRs.getBoolean("south");
-                boolean east = doorRs.getBoolean("east");
-                boolean west = doorRs.getBoolean("west");
-
-                if (north) {
-                    newDoor.AddExit(Direction.North);
-                }
-                if (south) {
-                    newDoor.AddExit(Direction.South);
-                }
-                if (east) {
-                    newDoor.AddExit(Direction.East);
-                }
-                if (west) {
-                    newDoor.AddExit(Direction.West);
-                }
-
-                newDoor.setX(x);
-                newDoor.setY(y);
-
-                newExit.add(newDoor);
-            }
-
-
-            disconnect();
-
-            return newExit;
-
-        }catch (SQLException dq){
-            dq.printStackTrace();
-        }
-
-return null;
-
-    }
 
 
 

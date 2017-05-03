@@ -9,6 +9,9 @@ public class Room {
     private ArrayList<String> exits;
     private ArrayList<Item> items;
 
+    private  ArrayList<String> newExits;
+    private String variant;
+
     private int x, y;
 
     public String getTitle() {
@@ -43,18 +46,36 @@ public class Room {
         this.items = items;
     }
 
+    public ArrayList<String> getNewExits() {
+        return newExits;
+    }
+
+    public void setNewExits(ArrayList<String> newExits) {
+        this.newExits = newExits;
+    }
+
+    public String getVariant() {
+        return variant;
+    }
+
+    public void setVariant(String variant) {
+        this.variant = variant;
+    }
+
     //getters and setters
 
 
-    public Room(String title, String description, int x ,int y) {
+    public Room(String title, String description, int x ,int y, String variant) {
         this();
         this.title = title;
         this.description = description;
+        this.variant = variant;
     }
 
     public Room() {
         exits = new ArrayList<String>();
         items = new ArrayList<Item>();
+        newExits = new ArrayList<String>();
     }
 
 
