@@ -2,6 +2,7 @@
 
 import java.sql.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 public class Database {
@@ -217,15 +218,12 @@ public class Database {
     }
 
 
-    public static ArrayList<LockedDoor> loadExits(String roomN){
+    public static HashMap<String, String>loadLockedDoors(String roomN){
 
         try {
             connect();
 
             String allLocksSql = "SELECT * FROM LockedDoors WHERE RoomName LIKE ?";
-
-
-            //Statement statement = conn.createStatement();
 
 
             PreparedStatement lockQuery = conn.prepareStatement(allLocksSql);
@@ -238,40 +236,19 @@ public class Database {
 
             ResultSet allLocksRS = lockQuery.executeQuery();
 
-            ArrayList<LockedDoor> locks = new ArrayList<LockedDoor>();
+           HashMap<String, String> locksAndTheirItems = new HashMap<String, String>();
 
-            while(allLocksRS.next()){
-                String roomName = allLocksRS.getString("RoomName");
-                String lockedDirection = allLocksRS.getString("LockedDirection");
-                String itemNeeded = allLocksRS.getString("ItemNeeded");
+           while(allLocksRS.next()){
+               String direction = allLocksRS.getString("LockedDirection");
+               String item = allLocksRS.getString("ItemNeeded");
 
-                LockedDoor lockedDoor = new LockedDoor(roomName,lockedDirection,itemNeeded);
+               locksAndTheirItems.put(direction, item);
+           }
 
-                boolean north = allLocksRS.getBoolean("north");
-                boolean south = allLocksRS.getBoolean("south");
-                boolean east = allLocksRS.getBoolean("east");
-                boolean west = allLocksRS.getBoolean("west");
+           disconnect();
 
-                if (north) {
-                    lockedDoor.AddExitNewRoom(Direction.North);
-                }
-                if (south) {
-                    lockedDoor.AddExitNewRoom(Direction.South);
-                }
-                if (east) {
-                    lockedDoor.AddExitNewRoom(Direction.East);
-                }
-                if (west) {
-                    lockedDoor.AddExitNewRoom(Direction.West);
-                }
+           return locksAndTheirItems;
 
-                locks.add(lockedDoor);
-            }
-
-
-            disconnect();
-
-            return locks;
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -282,92 +259,46 @@ public class Database {
     }
 
 
-    public static Room unlockedRoom(String roomN){
+    public static String  getDescriptionForRoom(Room room){
 
         try{
 
             connect();
 
-            String unlockSql = "SELECT * FROM ChangedRooms WHERE variant LIKE ?" +
+            String descriptionFinder = "SELECT * FROM ChangedRooms WHERE variant LIKE ?" +
                     "AND east = ?" +
                     "AND west = ?" +
                     "AND north = ?" +
                     "AND south = ?";
 
-            PreparedStatement unlockQuery = conn.prepareStatement(unlockSql);
+            PreparedStatement getDescription = conn.prepareStatement(descriptionFinder);
 
-            ArrayList<Room> changedRooms = Database.loadChangedRooms();
+            getDescription.setString(1, room.getTitle());
 
-           ArrayList<LockedDoor> locks = Database.loadExits(Player.GetCurrentRoom().getTitle());
 
-            unlockQuery.setString(1, roomN);
-            ResultSet unlockRS = unlockQuery.executeQuery();
 
-            for(Room unlockRoom : changedRooms) {
+           ArrayList<String> exits = room.getExits();
 
-                for(LockedDoor lock : locks) {
 
-                    if (unlockRoom.CanExit(Direction.East) == (lock.CanExitNewRoom(Direction.East))) {
-                        unlockQuery.setInt(2, 1);
-                    } else unlockQuery.setInt(2, 0);
-                    if (unlockRoom.CanExit(Direction.West) == (lock.CanExitNewRoom(Direction.West))) {
-                        unlockQuery.setInt(3, 1);
-                    } else unlockQuery.setInt(3, 0);
-                    if (unlockRoom.CanExit(Direction.North) == (lock.CanExitNewRoom(Direction.North))) {
-                        unlockQuery.setInt(4, 1);
-                    } else unlockQuery.setInt(4, 0);
-                    if (unlockRoom.CanExit(Direction.South) == (lock.CanExitNewRoom(Direction.South))) {
-                        unlockQuery.setInt(5, 1);
-                    } else unlockQuery.setInt(5, 0);
-                }
 
-                while(unlockRS.next()){
+            getDescription.setBoolean(2, exits.contains(Direction.East));
+            getDescription.setBoolean(3, exits.contains(Direction.West));
+            getDescription.setBoolean(4, exits.contains(Direction.North));
+            getDescription.setBoolean(5, exits.contains(Direction.South));
 
-                    String variant = unlockRS.getString("variant");
-                    String title = unlockRS.getString("title");
-                    String description = unlockRS.getString("description");
+            ResultSet resultSet = getDescription.executeQuery();
 
-                    int x = unlockRS.getInt("x");
-                    int y = unlockRS.getInt("y");
+            boolean hasNewDescription = resultSet.next();
 
-                    Room unlockingRoom = new Room(title, description, x, y, variant);
+            String description = null;
 
-                    boolean north = unlockRS.getBoolean("north");
-                    boolean south = unlockRS.getBoolean("south");
-                    boolean east = unlockRS.getBoolean("east");
-                    boolean west = unlockRS.getBoolean("west");
-
-                    if (north) {
-                        unlockingRoom.AddExit(Direction.North);
-                    }
-                    if (south) {
-                        unlockingRoom.AddExit(Direction.South);
-                    }
-                    if (east) {
-                        unlockingRoom.AddExit(Direction.East);
-                    }
-                    if (west) {
-                        unlockingRoom.AddExit(Direction.West);
-                    }
-
-                    unlockingRoom.setX(x);
-                    unlockingRoom.setY(y);
-
-                    changedRooms.add(unlockingRoom);
-
-                    return unlockRoom;
-                }
-
+            if(hasNewDescription){
+                description = resultSet.getString("description");
             }
 
-
-
-
-
-
-
-
             disconnect();
+
+            return description;
 
 
         }catch (SQLException uRsql){

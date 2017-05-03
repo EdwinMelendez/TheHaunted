@@ -41,6 +41,7 @@ public class GameEngineGui extends JFrame{
                 try {
                     String userInput = userInputTextField.getText();
                     CommandProcessor.ProcessCommand(userInput);
+                    userInputTextField.setText("");
                     //System.out.println(userInput);
 
                 }catch (Exception E){

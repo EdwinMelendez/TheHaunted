@@ -10,6 +10,8 @@ public  class CommandProcessor {
 
     public static void ProcessCommand(String line) throws Exception{
 
+        TextBuffer.Reset();
+
         String command = TextUtils.ExtractCommand(line.toLowerCase());
         //System.out.println("command execute");
         System.out.println(command);

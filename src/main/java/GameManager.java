@@ -1,5 +1,6 @@
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Created by DarthVader on 3/22/17.
@@ -29,32 +30,27 @@ public class GameManager {
 
     public static void ApplyRules() {
 
-        //ArrayList<Room> databaseRooms = Database.loadRooms();
-        ArrayList<Room> databaseChangedRooms = Database.loadChangedRooms();
 
-        ArrayList<LockedDoor> databaseLocks = Database.loadExits(Player.GetCurrentRoom().getTitle());
+        HashMap<String, String> lockedDoorsAndItemsNeededToUnlock = Database.loadLockedDoors(Player.GetCurrentRoom().getTitle());
 
+        Room currentRoom = Player.GetCurrentRoom();
 
-        for (LockedDoor lockedDoor : databaseLocks){
+        for (String direction : lockedDoorsAndItemsNeededToUnlock.keySet()){
 
-        String itemRequired = lockedDoor.getItemNeeded();
+            String itemRequired = lockedDoorsAndItemsNeededToUnlock.get(direction);
 
-        if (Player.GetCurrentRoom().doesContain(itemRequired)){
+            if(Player.GetCurrentRoom().doesContain(itemRequired)){
 
-           Room roomChanged = Database.unlockedRoom(lockedDoor.getRoomName());
+                currentRoom.AddExit(direction);
 
-            for(Room room : Level.databaseRooms){
+                String newDescription = Database.getDescriptionForRoom(currentRoom);
 
-                room.setExits(roomChanged.getExits());
-
-                room.setDescription(roomChanged.getDescription());
+                if(newDescription != null){
+                    currentRoom.setDescription(newDescription);
+                }
             }
-
-
         }
 
-
-        }
 
        }
 

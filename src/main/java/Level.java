@@ -31,10 +31,8 @@ public class Level {
         //initialize start position
         Player.setPosX(0);
         Player.setPosY(0);
-
-
 //        databaseRooms = Database.loadRooms();
-//        databaseItems = Database.loadItems();
+//       databaseItems = Database.loadItems();
 
         for (Item item : databaseItems) {
 
