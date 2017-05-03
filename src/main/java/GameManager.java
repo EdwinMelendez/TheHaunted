@@ -7,6 +7,7 @@ import java.util.ArrayList;
 public class GameManager {
 
 
+
     public static void ShowTitleScreen(){
         System.out.println("Welcome to The Haunted");
     }
@@ -26,10 +27,11 @@ public class GameManager {
         System.exit(0);
     }
 
-    public static void ApplyRules()  {
+    public static void ApplyRules() throws NullPointerException {
 
-        ArrayList<Room> databaseRooms = Database.loadRooms();
+        //ArrayList<Room> databaseRooms = Database.loadRooms();
         ArrayList<Room> databaseChangedRooms = Database.loadChangedRooms();
+
         ArrayList<LockedDoor> databaseLocks = Database.loadExits(Player.GetCurrentRoom().getTitle());
 
         Boolean lock = true;
@@ -39,9 +41,9 @@ public class GameManager {
 
             String itemRequired = lockedDoor.getItemNeeded();
 
-            if (Player.GetCurrentRoom().getItems().contains(itemRequired)){
+            if (Player.GetCurrentRoom().doesContain(itemRequired)){
 
-                for (Room room : databaseRooms){
+                for (Room room : Level.databaseRooms){
 
                     for(Room changedRoom : databaseChangedRooms){
 

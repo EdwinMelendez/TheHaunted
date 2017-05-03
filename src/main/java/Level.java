@@ -6,6 +6,9 @@ import java.util.List;
  */
 public class Level {
 
+    public static ArrayList<Room> databaseRooms = Database.loadRooms();
+
+    private static ArrayList<Item> databaseItems = Database.loadItems();
 
     public static Room[][] rooms;
 
@@ -29,8 +32,7 @@ public class Level {
         Player.setPosX(0);
         Player.setPosY(0);
 
-        ArrayList<Room> databaseRooms = Database.loadRooms();
-        ArrayList<Item> databaseItems = Database.loadItems();
+
 //        databaseRooms = Database.loadRooms();
 //        databaseItems = Database.loadItems();
 

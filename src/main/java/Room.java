@@ -100,6 +100,15 @@ public class Room {
         return null;
     }
 
+    public boolean doesContain(String itemName){
+
+        for (Item itemNeeded : this.items){
+            if(itemNeeded.getTitle().equalsIgnoreCase(itemName))
+              return true;
+        }
+       return false;
+    }
+
 
     public void addItem(Item item) {
         items.add(item);

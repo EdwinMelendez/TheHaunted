@@ -222,7 +222,7 @@ public class Database {
         try {
             connect();
 
-            String allLocksSql = "SELECT * FROM LockedDoors WHERE RoomName = ?";
+            String allLocksSql = "SELECT * FROM LockedDoors WHERE RoomName LIKE ?";
 
 
             //Statement statement = conn.createStatement();
@@ -233,6 +233,8 @@ public class Database {
 
             lockQuery.setString(1, roomN);
 
+            System.out.println(lockQuery.toString());
+
 
             ResultSet allLocksRS = lockQuery.executeQuery(allLocksSql);
 
@@ -241,7 +243,7 @@ public class Database {
             while(allLocksRS.next()){
                 String roomName = allLocksRS.getString("RoomName");
                 String lockedDirection = allLocksRS.getString("LockedDirection");
-                String itemNeeded = allLocksRS.getNString("ItemNeeded");
+                String itemNeeded = allLocksRS.getString("ItemNeeded");
 
                 LockedDoor lockedDoor = new LockedDoor(roomName,lockedDirection,itemNeeded);
 
