@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.List;
 public class Room {
 
+    //room class
     private String title;
     private String description;
 
@@ -46,7 +47,21 @@ public class Room {
         this.items = items;
     }
 
+    public int getX() {
+        return x;
+    }
 
+    public void setX(int x) {
+        this.x = x;
+    }
+
+    public int getY() {
+        return y;
+    }
+
+    public void setY(int y) {
+        this.y = y;
+    }
 
     public String getVariant() {
         return variant;
@@ -66,13 +81,14 @@ public class Room {
         this.variant = variant;
     }
 
+    //room holds array list of exits and items
     public Room() {
         exits = new ArrayList<String>();
         items = new ArrayList<Item>();
 
     }
 
-
+    // describes current room, description, items, and exits
     public void Describe(){
 
         TextBuffer.AddDescription(this.description);
@@ -80,39 +96,53 @@ public class Room {
         TextBuffer.AddDirection(this.GetExitList());
     }
 
+    //shows room title
     public void ShowTitle(){
         TextBuffer.AddRoomName(this.title);
     }
 
+    //gets items
     public Item GetItem(String itemName){
 
+        //for items in array list of items in room
         for (Item item : this.items){
+
+            //if item title equals item name
             if (item.getTitle().toLowerCase().equals(itemName.toLowerCase())) {
+
+                //returns items
                 return item;
             }
         }
         return null;
     }
 
+    //boolean does contain item
     public boolean doesContain(String itemName){
 
+        //for item needed in array list of item
         for (Item itemNeeded : this.items){
+
+            //if item needed title equals item name
             if(itemNeeded.getTitle().equalsIgnoreCase(itemName))
+
+                //returns true
               return true;
         }
        return false;
     }
 
 
+    //add item
     public void addItem(Item item) {
         items.add(item);
     }
 
 
+    //adds exit
     public void AddExit(String direction){
 
         if (this.exits.indexOf(direction) == -1){
-            //System.out.println(direction);
             this.exits.add(direction);
         }
 
@@ -125,19 +155,14 @@ public class Room {
         }
     }
 
+    //can exit boolean
     public Boolean CanExit(String direction){
 
         return exits.contains(direction);
 
-//        for (String validExit : exits) {
-//            if(direction.equals(validExit)){
-//                return true;
-//            }
-//        }
-//        return false;
-
     }
 
+    //returns string of items in room
     private  String GetItemList(){
 
         String itemString = "";
@@ -156,6 +181,7 @@ public class Room {
         return "\n" + message + "\n" + underline + itemString;
     }
 
+    //returns string of exits
     private String GetExitList(){
 
         String exitString = "";
@@ -170,41 +196,6 @@ public class Room {
         else{
             exitString = "\n<none>";
         }
-
         return "\n" + message + "\n" + underline + exitString;
-
     }
-
-    public int getX() {
-        return x;
-    }
-
-    public void setX(int x) {
-        this.x = x;
-    }
-
-    public int getY() {
-        return y;
-    }
-
-    public void setY(int y) {
-        this.y = y;
-    }
-
-    //    private String GetCoordinates(){
-//
-//        for (int x = 0; x < Level.getRooms().toArray().length; x++){
-//            for (int y = 0; y < Level.getRooms().toArray().length; y++){
-//                if (this == Level.setRooms();{
-//                    return "[" + y.
-//                }
-//            }
-//        }
-//    }
-
-
-
-
-
-
 }

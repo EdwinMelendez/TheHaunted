@@ -1,11 +1,10 @@
 import java.util.ArrayList;
-import java.util.concurrent.locks.Lock;
 
-/**
- * Created by DarthVader on 4/26/17.
- */
 public class LockedDoor {
 
+
+    //class for locked door objects
+    //class isn't actually used
     private String roomName;
     private String lockedDirection;
     private String itemNeeded;

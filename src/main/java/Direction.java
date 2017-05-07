@@ -1,8 +1,6 @@
-/**
- * Created by DarthVader on 3/22/17.
- */
 public abstract class Direction {
 
+    //directions class
     public static final String North = "north";
     public static final String South = "south";
     public static final String East = "east";

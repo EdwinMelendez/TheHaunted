@@ -1,5 +1,3 @@
-
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -7,45 +5,38 @@ import java.util.HashMap;
 
 public class Database {
 
-    static Connection conn;
+    private static Connection conn;
 
+    //connection to database method
     public static void connect() {
-//        Connection conn = null;
         try {
             // db parameters
-
-
             try {
                 Class.forName("org.sqlite.JDBC");
             } catch (ClassNotFoundException e) {
                 e.printStackTrace();
             }
-            String url = "jdbc:sqlite:ColorsGame.db";
+            String url = "jdbc:sqlite:Game.db";
             // create a connection to the database
             conn = DriverManager.getConnection(url);
-
-
-            System.out.println("Connection to SQLite has been established.");
-
         } catch (SQLException e) {
             System.out.println(e.getMessage());
-//        } finally {
-//            try {
-//                if (conn != null) {
-//                    conn.close();
-//                }
-//            } catch (SQLException ex) {
-//                System.out.println(ex.getMessage());
-//            }
         }
     }
 
-//    public static void main(String[] args) {
-//
-//
-//        connect();
-//    }
+    //disconnect method
+    private static void disconnect() {
 
+        if (conn != null) {
+            try {
+                conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    //Loads rooms from database and returns an array list of rooms
     public static ArrayList<Room> loadRooms() {
 
         try {
@@ -90,7 +81,6 @@ public class Database {
 
                 room.setX(x);
                 room.setY(y);
-
                 rooms.add(room);
 
             }
@@ -106,17 +96,8 @@ public class Database {
         return null;
     }
 
-    private static void disconnect() {
 
-        if (conn != null) {
-            try {
-                conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
-    }
-
+    //Loads items from database and returns an array list of items
     public static ArrayList<Item> loadItems() {
 
         try {
@@ -153,71 +134,73 @@ public class Database {
         return null;
 
     }
+    //following method isn't used
 
-    public static ArrayList<Room> loadChangedRooms() {
+//    public static ArrayList<Room> loadChangedRooms() {
+//
+//        try {
+//            connect();
+//
+//
+//            String allChangedRoomsSql = "SELECT * FROM ChangedRooms";
+//            Statement statement = conn.createStatement();
+//
+//            ResultSet allChangedRoomsRS = statement.executeQuery(allChangedRoomsSql);
+//
+//            ArrayList<Room> changeRooms = new ArrayList<Room>();
+//
+//            while (allChangedRoomsRS.next()) {
+//
+//                String variant = allChangedRoomsRS.getString("variant");
+//                String title = allChangedRoomsRS.getString("title");
+//                String description = allChangedRoomsRS.getString("description");
+//
+//
+//
+//                int x = allChangedRoomsRS.getInt("x");
+//                int y = allChangedRoomsRS.getInt("y");
+//
+//
+//                Room changedRoom = new Room(title, description, x, y, variant);
+//
+//                boolean north = allChangedRoomsRS.getBoolean("north");
+//                boolean south = allChangedRoomsRS.getBoolean("south");
+//                boolean east = allChangedRoomsRS.getBoolean("east");
+//                boolean west = allChangedRoomsRS.getBoolean("west");
+//
+//                if (north) {
+//                    changedRoom.AddExit(Direction.North);
+//                }
+//                if (south) {
+//                    changedRoom.AddExit(Direction.South);
+//                }
+//                if (east) {
+//                    changedRoom.AddExit(Direction.East);
+//                }
+//                if (west) {
+//                    changedRoom.AddExit(Direction.West);
+//                }
+//
+//                changedRoom.setX(x);
+//                changedRoom.setY(y);
+//
+//                changeRooms.add(changedRoom);
+//
+//            }
+//
+//            disconnect();
+//
+//            return changeRooms;
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
+//
+//        return null;
+//    }
 
-        try {
-            connect();
-
-
-            String allChangedRoomsSql = "SELECT * FROM ChangedRooms";
-            Statement statement = conn.createStatement();
-
-            ResultSet allChangedRoomsRS = statement.executeQuery(allChangedRoomsSql);
-
-            ArrayList<Room> changeRooms = new ArrayList<Room>();
-
-            while (allChangedRoomsRS.next()) {
-
-                String variant = allChangedRoomsRS.getString("variant");
-                String title = allChangedRoomsRS.getString("title");
-                String description = allChangedRoomsRS.getString("description");
-
-
-
-                int x = allChangedRoomsRS.getInt("x");
-                int y = allChangedRoomsRS.getInt("y");
-
-
-                Room changedRoom = new Room(title, description, x, y, variant);
-
-                boolean north = allChangedRoomsRS.getBoolean("north");
-                boolean south = allChangedRoomsRS.getBoolean("south");
-                boolean east = allChangedRoomsRS.getBoolean("east");
-                boolean west = allChangedRoomsRS.getBoolean("west");
-
-                if (north) {
-                    changedRoom.AddExit(Direction.North);
-                }
-                if (south) {
-                    changedRoom.AddExit(Direction.South);
-                }
-                if (east) {
-                    changedRoom.AddExit(Direction.East);
-                }
-                if (west) {
-                    changedRoom.AddExit(Direction.West);
-                }
-
-                changedRoom.setX(x);
-                changedRoom.setY(y);
-
-                changeRooms.add(changedRoom);
-
-            }
-
-            disconnect();
-
-            return changeRooms;
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-
-        return null;
-    }
-
-
+    //selects the locked doors and the items required in order to open locked doors,
+    // returns hash map of directions and items
     public static HashMap<String, String>loadLockedDoors(String roomN){
 
         try {
@@ -258,8 +241,9 @@ public class Database {
 
     }
 
-
-    public static String  getDescriptionForRoom(Room room){
+    //Takes in a room parameter and then uses that in sql query
+    //returns description from the changed room and directions are added
+    public static String getDescriptionForRoom(Room room){
 
         try{
 
@@ -275,12 +259,10 @@ public class Database {
 
             getDescription.setString(1, room.getTitle());
 
+            //array list of strings of exit directions depending on the corresponding db entry
+            ArrayList<String> exits = room.getExits();
 
-
-           ArrayList<String> exits = room.getExits();
-
-
-
+            //sets the exits
             getDescription.setBoolean(2, exits.contains(Direction.East));
             getDescription.setBoolean(3, exits.contains(Direction.West));
             getDescription.setBoolean(4, exits.contains(Direction.North));
@@ -306,12 +288,7 @@ public class Database {
         }
 
 return null;
+
     }
-
-
-
-
-
-
 
 }

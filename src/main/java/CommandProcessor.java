@@ -1,7 +1,3 @@
-import javax.swing.*;
-import java.awt.*;
-
-
 public  class CommandProcessor {
 
 
@@ -10,50 +6,62 @@ public  class CommandProcessor {
 
     public static void ProcessCommand(String line) throws Exception{
 
+        //reset text windows
         TextBuffer.Reset();
 
+        //extracts command (first word typed)
         String command = TextUtils.ExtractCommand(line.toLowerCase());
-        //System.out.println("command execute");
-        System.out.println(command);
+
+        //extracts argument (either direction or item names)
         String argument = TextUtils.ExtractArguments(line.toLowerCase());
-        //System.out.println("argument execute");
-        System.out.println(argument);
+
+            //quits game if you type 'exit'
         if (command.equals("exit")) {
             GameManager.EndGame();
 
+            //shows list of commands
         } else if (command.equals("help")) {
             ShowHelp();
 
+            //moving command
         } else if (command.equals("move")) {
             Player.Move(argument);
-         //   GameManager.ApplyRules();
+            Player.GetCurrentRoom().Describe();
 
+            //gets the description of the room
         } else if (command.equals("look")) {
             Player.GetCurrentRoom().Describe();
 
+            //pick up an item
         } else if (command.equals("pickup")) {
             Player.PickupItem(argument);
 
+            //drops an item
         } else if (command.equals("drop")) {
             Player.DropItem(argument);
-            //GameManager.ApplyRules();
 
+            //displays inventory
         } else if (command.equals("inventory")) {
             TextBuffer.Reset();
             Player.DisplayInventory();
 
+            //shows the room title
         } else if (command.equals("whereami")) {
             TextBuffer.Reset();
             Player.GetCurrentRoom().ShowTitle();
 
+            //if wrong command is typed a message is displayed
         } else {
             TextBuffer.Reset();
             TextBuffer.AddDescription("That doesn't make sense...");
 
         }
-        GameManager.ApplyRules();
-        //TextBuffer.Reset();
 
+        //applies game rules
+        GameManager.ApplyRules();
+
+
+        //displays the right text in the corresponding text boxes
         String outRoom = TextBuffer.OutputRoomName();
         String outDescript = TextBuffer.OutputDescription();
         String outDirect = TextBuffer.OutputDirection();
@@ -67,6 +75,7 @@ public  class CommandProcessor {
 
     }
 
+    //show help method
     public static void ShowHelp(){
 
         TextBuffer.Reset();

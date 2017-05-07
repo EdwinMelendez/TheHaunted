@@ -1,9 +1,7 @@
-/**
- * Created by DarthVader on 3/22/17.
- */
 public class Item {
 
 
+    //Item class
     private String title;
     private String pickupText;
     private int weight = 1;

@@ -2,7 +2,7 @@ import javax.swing.*;
 
 public class TextBuffer  {
 
-
+//class for the three text area swing objects
 
     private static String descriptionBuffer;
     private static String itemBuffer;
@@ -45,6 +45,8 @@ public class TextBuffer  {
         return roomNameBuffer;
     }
 
+
+    //resets text areas
     public static void Reset(){
         descriptionBuffer = "";
         itemBuffer = "";

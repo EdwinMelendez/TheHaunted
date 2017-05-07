@@ -2,9 +2,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
 
-/**
- * Created by DarthVader on 3/29/17.
- */
 public class GameEngineGui extends JFrame{
     private JPanel rootPanel;
     private JLabel roomName;
@@ -15,7 +12,7 @@ public class GameEngineGui extends JFrame{
 
 
 
-
+    //game engine gui
     protected GameEngineGui(){
         setContentPane(rootPanel);
         setSize(new Dimension(600, 600));
@@ -27,23 +24,25 @@ public class GameEngineGui extends JFrame{
         roomDescriptor.setEditable(false);
         directionList.setEditable(false);
 
-
+        //displays when game is opened.
         roomDescriptor.setText("Welcome to the Haunted: \n\n" +
                 "You wake up disoriented in a dark musty room. Type 'look' " +
                 "to find out where you are...\n\n" +
                 "Type 'help' anytime to see a list of commands");
 
 
+        //action listeners
         userInputTextField.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
 
+                //gets text and processes commands and arguments, then resets the user text field
                 try {
                     String userInput = userInputTextField.getText();
                     CommandProcessor.ProcessCommand(userInput);
                     userInputTextField.setText("");
-                    //System.out.println(userInput);
 
+                //error moving between rooms
                 }catch (Exception E){
                     System.out.println(E);
                     E.printStackTrace();
@@ -52,7 +51,7 @@ public class GameEngineGui extends JFrame{
             }
         });
 
-
+        //when user clicks the user text field, clears text field
         userInputTextField.addMouseListener(new MouseAdapter() {
             @Override
             public void mouseClicked(MouseEvent e) {
@@ -63,6 +62,7 @@ public class GameEngineGui extends JFrame{
         });
     }
 
+    //sets text to the right text boxes
     void DisplayRoomName(String text){
         roomName.setText(text);
     }

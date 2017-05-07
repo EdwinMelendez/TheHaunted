@@ -1,14 +1,13 @@
 import java.util.ArrayList;
 
-/**
- * Created by DarthVader on 3/22/17.
- */
+
 public class Player {
 
-
+    //Player class
     private static int posX;
     private static int posY;
 
+    //Player holds array list of items with a weight cap of 6
     private static ArrayList<Item> inventoryItems = new ArrayList<Item>();
     private static int moves = 0;
     private static int weightCap = 6;
@@ -59,21 +58,24 @@ public class Player {
 
     public Player(){
 
+        //inventory array list
         inventoryItems = new ArrayList<Item>();
     }
 
 
     public static void Move(String direction){
 
+        //gets players current room
         Room room = Player.GetCurrentRoom();
 
-
+        //if can not move a direction
         if(!room.CanExit(direction)){
+            //prompts user that they typed an invalid direction
             TextBuffer.AddDescription("Invalid Direction");
             return;
         }
 
-
+        //increments move counter
         Player.moves++;
 
         if (direction.equals(Direction.North)) {
@@ -89,37 +91,52 @@ public class Player {
             posY--;
 
         }
+
+        //describes player's current room
         Player.GetCurrentRoom().Describe();
 
 
 
     }
 
+    //method for picking up an item
     public static void PickupItem(String itemName){
 
         Room room = Player.GetCurrentRoom();
         Item item = room.GetItem(itemName);
 
+        //if the user didn't type an item name it asks which item the user meant
         if (itemName.equals("")){
             TextBuffer.AddItem("Which item?");
             return;
         }
 
+        //if item is not null
         if(item != null){
+
+            //if the inventory weight exceeds capacity doesn't allow user to pick up any more items
             if (Player.getInventoryWeight() + item.getWeight() > Player.weightCap){
                 TextBuffer.AddItem("Inventory capacity reached. Please drop an item to pick up another.");
                 return;
             }
 
+            //otherwise remove item from room array list
             room.getItems().remove(item);
+
+            //adds item to inventory
             Player.inventoryItems.add(item);
+
+            //displays item pick up text
             TextBuffer.AddItem(item.getPickupText());
         }
         else{
+
+            //displays if you typed the wrong name
             TextBuffer.AddItem("There is no " + itemName + " in this room.");
         }
     }
 
+    //method for dropping items works similar to picking up item method
     public static void DropItem(String itemName){
 
         Room room = Player.GetCurrentRoom();
@@ -136,6 +153,7 @@ public class Player {
         }
     }
 
+    //display inventory method
     public static void DisplayInventory(){
 
         String message = "Your inventory contains:";
@@ -156,13 +174,13 @@ public class Player {
         TextBuffer.AddItem(message + "\n" + underline + items);
     }
 
+    //gets current room
     public static Room GetCurrentRoom(){
 
-        //TextBuffer.Reset();
-       // return (Room) Level.rooms.subList(posX,posY);
         return Level.rooms[posX][posY];
     }
 
+    //gets inventory item
     public static Item GetInventoryItem(String itemName){
 
         for(Item item : inventoryItems){

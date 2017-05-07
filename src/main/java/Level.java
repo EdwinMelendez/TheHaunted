@@ -1,15 +1,16 @@
 import java.util.ArrayList;
-import java.util.List;
 
-/**
- * Created by DarthVader on 3/22/17.
- */
 public class Level {
 
+    //Level array lists made up of loaded database objects
+
+    //Array list of room objects
     public static ArrayList<Room> databaseRooms = Database.loadRooms();
 
+    //Array list of item objects
     private static ArrayList<Item> databaseItems = Database.loadItems();
 
+    //2D array of rooms
     public static Room[][] rooms;
 
     public static Room[][] getRooms() {
@@ -19,109 +20,49 @@ public class Level {
     public static void setRooms(Room[][] rooms) {
         Level.rooms = rooms;
     }
-//getters and setters
+    //getters and setters
 
+    //runs method that builds the initial game
     public static void Initialize(){
-
         BuildLevel();
     }
 
+    //builds initial game
     private static void BuildLevel() {
 
         //initialize start position
-        Player.setPosX(0);
+        Player.setPosX(1);
         Player.setPosY(0);
-//        databaseRooms = Database.loadRooms();
-//       databaseItems = Database.loadItems();
 
+        //for item objects in array list of items
         for (Item item : databaseItems) {
 
+            //for room objects in array list of rooms
             for (Room room : databaseRooms) {
 
+                //if the room's title corresponds to the item's room title
                 if (room.getTitle().equals(item.getRoom())) {
+
+                    //adds the item to that room
                     room.addItem(item);
                 }
             }
         }
 
-        // Add rooms to correct place in 2D array
+        //Creates 2D room grid
+        rooms = new Room[3][4];
 
-        rooms = new Room[2][4];     // TODO figure out actual size of level and use that to create 2d array
-
+        //for room objects in array list of rooms
         for (Room room : databaseRooms) {
 
+            //gets x and y coordinates
             int x = room.getX();
             int y = room.getY();
 
+            //assigns matching x and y coordinates to each room in 2D grid
             rooms[x][y] = room;
 
         }
-
-
-
-
-//        //List of room names and items
-//        rooms = new Room[3][2];
-//        Room grandFoyer;
-//        Room diningHall;
-//        Room armourRoom;
-//        Room kitchen;
-//        Room musicRoom;
-//        Room grandLibrary;
-//        Room masterBedroom;
-//        Room childsRoom;
-//        Room ritualCellar;
-//        Room grandTheater;
-//        Room wineCellar;
-//        Room Coffin;
-//
-//        Item chalice;
-//        Item kitchenKey;
-//        Item smallKey;
-//        Item garlic;
-//        Item musicBox;
-//        Item cagedCat;
-//        Item cagedMouse;
-//        Item woodenStake;
-//        Item ritualWine;
-//        Item butcherKey;
-//
-//
-//        ////////////////////////////Grand Foyer[0,0]/////////////////////////////////
-//
-//        //create new rooms
-//        grandFoyer = new Room();
-//        rooms[0][0] = grandFoyer;
-//
-//        //setup room
-//        TextBuffer.Reset();
-//        grandFoyer.setTitle("Grand Foyer");
-//        grandFoyer.setDescription("You find yourself in the Grand Foyer. There is a dank stench looming and the only light in the room " +
-//                "is coming from the cracks in the boarded windows." +
-//                "There is an ornate Golden Chalice " +
-//                "sitting on a lone Pedestal; curiously untarnished. You spot a Key lying beside the chalice with a note attached. " +
-//                "There are a set of winding wooden stairs to your SOUTH, and a wooden door to your EAST.");
-//        grandFoyer.AddExit(Direction.East);
-//        grandFoyer.AddExit(Direction.South);
-//        //create item
-//        chalice = new Item("Golden Chalice", "The chalice seemed to hum slightly when you pick it up.", 1);
-//        kitchenKey = new Item("Kitchen Key", "The note attached reads: 'Be wary of your thirst for knowledge'... " +
-//                "It seems heavily used.", 1);
-//
-//        //add item to room
-//        grandFoyer.getItems().add(chalice);
-//        grandFoyer.getItems().add(kitchenKey);
-//
-
-
-
-
-
-
-
-
-
-
 
     }
 }
