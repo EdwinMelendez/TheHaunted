@@ -1,0 +1,17 @@
+The Haunted Read Me:
+
+This project has been adapted from an online tutorial base in C#
+
+http://www.3dbuzz.com/training/view/xna-volume-1/hyperion-text-adventure-game
+
+The goal of this project was to expand on the basic tutorial to create a full
+fledged text rpg game engine. In it’s current form I believe it sticks true to
+the intended goal.
+
+DEPENDENCIES:
+
+sqlite: https://www.sqlite.org/download.html
+
+sqlite DB Browser(optional): http://sqlitebrowser.org/
+
+sqlite maven dependencies: https://mvnrepository.com/artifact/org.xerial/sqlite-jdbc
