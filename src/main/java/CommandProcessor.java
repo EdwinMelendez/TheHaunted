@@ -26,7 +26,6 @@ public  class CommandProcessor {
             //moving command
         } else if (command.equals("move")) {
             Player.Move(argument);
-            //Player.GetCurrentRoom().Describe();
 
             //gets the description of the room
         } else if (command.equals("look")) {
